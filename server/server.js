@@ -28,7 +28,40 @@ client
       }
     });
 
+    app.post("/add", async (req, res) => {
+      try {
+        const { name } = req.body; // Extract the subject name from the request body
     
+        // Insert the new subject into the 'subjects' collection
+        const result = await subjects.insertOne({ name  ,attended:0,missed:0,total:0});
+        
+        // Send a success response
+        res.status(201).json({
+          message: "Subject added successfully",
+          insertedId: result.insertedId,
+        });
+      } catch (error) {
+        console.error("Error adding subject:", error);
+        res.status(500).json({ message: "Error adding subject" });
+      }
+    });
+
+    app.delete("/delete", async (req, res) => {
+      try {
+        const { name } = req.body;
+    
+        const result = await subjects.deleteOne({ name });
+    
+        if (result.deletedCount === 1) {
+          res.status(200).json({ message: "Subject deleted successfully" });
+        } else {
+          res.status(404).json({ message: "Subject not found" });
+        }
+      } catch (error) {
+        console.error("Error deleting subject:", error);
+        res.status(500).json({ message: "Error deleting subject" });
+      }
+    });
 
   })
   .catch((err) => console.error("MongoDB connection error:", err));
