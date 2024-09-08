@@ -63,6 +63,58 @@ client
       }
     });
 
+    app.post("/attended", async (req, res) => {
+      try {
+        const { name } = req.body; // Extract subject name from the request body
+    
+        // Increment 'attended' and 'total' fields by 1 for the matching subject
+        const result = await subjects.updateOne(
+          { name },
+          {
+            $inc: { attended: 1, total: 1 }
+          }
+        );
+    
+        if (result.matchedCount === 0) {
+          // If no document matched the filter
+          res.status(404).json({ message: "Subject not found" });
+        } else {
+          // If the document was found and updated
+          res.status(200).json({ message: "Subject updated successfully" });
+        }
+      } catch (error) {
+        console.error("Error updating subject:", error);
+        res.status(500).json({ message: "Error updating subject" });
+      }
+    });
+
+    app.post("/missed", async (req, res) => {
+      try {
+        const { name } = req.body; // Extract subject name from the request body
+    
+        // Increment 'attended' and 'total' fields by 1 for the matching subject
+        const result = await subjects.updateOne(
+          { name },
+          {
+            $inc: { missed: 1, total: 1 }
+          }
+        );
+    
+        if (result.matchedCount === 0) {
+          // If no document matched the filter
+          res.status(404).json({ message: "Subject not found" });
+        } else {
+          // If the document was found and updated
+          res.status(200).json({ message: "Subject updated successfully" });
+        }
+      } catch (error) {
+        console.error("Error updating subject:", error);
+        res.status(500).json({ message: "Error updating subject" });
+      }
+    });
+
+
+    
   })
   .catch((err) => console.error("MongoDB connection error:", err));
 
