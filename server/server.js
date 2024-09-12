@@ -28,14 +28,21 @@ client
       }
     });
 
+    // Add a new subject
     app.post("/add", async (req, res) => {
       try {
-        const { name } = req.body; // Extract the subject name from the request body
-    
+        const { name } = req.body;
+        const currentTime = new Date();
+
         // Insert the new subject into the 'subjects' collection
-        const result = await subjects.insertOne({ name  ,attended:0,missed:0,total:0});
-        
-        // Send a success response
+        const result = await subjects.insertOne({
+          name,
+          attended: 0,
+          missed: 0,
+          total: 0,
+          lastUpdated: currentTime
+        });
+
         res.status(201).json({
           message: "Subject added successfully",
           insertedId: result.insertedId,
@@ -46,12 +53,13 @@ client
       }
     });
 
+    // Delete a subject
     app.delete("/delete", async (req, res) => {
       try {
         const { name } = req.body;
-    
+
         const result = await subjects.deleteOne({ name });
-    
+
         if (result.deletedCount === 1) {
           res.status(200).json({ message: "Subject deleted successfully" });
         } else {
@@ -63,23 +71,23 @@ client
       }
     });
 
+    // Mark a subject as attended
     app.post("/attended", async (req, res) => {
       try {
-        const { name } = req.body; // Extract subject name from the request body
-    
-        // Increment 'attended' and 'total' fields by 1 for the matching subject
+        const { name } = req.body;
+        const currentTime = new Date();
+
         const result = await subjects.updateOne(
           { name },
           {
-            $inc: { attended: 1, total: 1 }
+            $inc: { attended: 1, total: 1 },
+            $set: { lastUpdated: currentTime }
           }
         );
-    
+
         if (result.matchedCount === 0) {
-          // If no document matched the filter
           res.status(404).json({ message: "Subject not found" });
         } else {
-          // If the document was found and updated
           res.status(200).json({ message: "Subject updated successfully" });
         }
       } catch (error) {
@@ -88,23 +96,23 @@ client
       }
     });
 
+    // Mark a subject as missed
     app.post("/missed", async (req, res) => {
       try {
-        const { name } = req.body; // Extract subject name from the request body
-    
-        // Increment 'attended' and 'total' fields by 1 for the matching subject
+        const { name } = req.body;
+        const currentTime = new Date();
+
         const result = await subjects.updateOne(
           { name },
           {
-            $inc: { missed: 1, total: 1 }
+            $inc: { missed: 1, total: 1 },
+            $set: { lastUpdated: currentTime }
           }
         );
-    
+
         if (result.matchedCount === 0) {
-          // If no document matched the filter
           res.status(404).json({ message: "Subject not found" });
         } else {
-          // If the document was found and updated
           res.status(200).json({ message: "Subject updated successfully" });
         }
       } catch (error) {
@@ -113,8 +121,6 @@ client
       }
     });
 
-
-    
   })
   .catch((err) => console.error("MongoDB connection error:", err));
 

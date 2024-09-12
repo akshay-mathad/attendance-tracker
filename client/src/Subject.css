@@ -1,0 +1,56 @@
+/* Ensure the component is contained within its parent */
+.hor-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 100%; /* Prevents exceeding the parent container’s width */
+    box-sizing: border-box; /* Ensures padding and border are included in width calculation */
+  }
+  
+  /* Style for the header */
+  .hor-container h3 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #333;
+  }
+  
+  /* Button styling */
+  .hor-container .btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    text-align: center;
+    display: inline-block;
+    width: 150px; /* Fixed width for consistency */
+  }
+  
+  /* Button hover effect */
+  .hor-container .btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Label styling */
+  .hor-container label {
+    display: block;
+    margin: 5px 0;
+    font-size: 1em;
+    color: #333;
+  }
+  
+  /* Canvas styling */
+  .hor-container canvas {
+    max-width: 100%; /* Ensures the chart fits within the container */
+    height: auto; /* Maintains aspect ratio of the chart */
+  }
+  

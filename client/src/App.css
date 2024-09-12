@@ -1,0 +1,141 @@
+header{
+  font-size:45px;
+  font-family: "Bungee Tint", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color:rgb(25, 58, 80);
+  text-decoration: underline;
+  text-align: center;
+  margin-bottom: 10px
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Playwrite+CU&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+CU&display=swap');
+
+h1{
+  padding: 10px;
+  margin-bottom: 5px;
+  font-size: xx-large;
+  text-decoration: underline;
+
+  /*font-family: "Playwrite CU",normal;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal; */
+  font-family: "EB Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+}
+
+input{
+  color: black;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+.v-container{
+  display: flex;
+  flex-direction: rows;
+  /* margin-bottom: 20px; */
+}
+
+#edit-sub{
+  padding: 5px
+}
+
+container{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px; /* Space between items */
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.App{
+  
+    max-width: fit-content;
+    
+    margin: 2rem auto;
+    padding: 2rem;
+    color: #000000;
+    background-color: #E9DFD8;
+    
+    /* background-color: rgb(251, 207, 40);background-image:  url(https://img.icons8.com/android/2x/happy.png);background-size: auto;background-position: left top;background-repeat: repeat; */
+    
+    /*
+* Created with https://www.css-gradient.com
+* Gradient link: https://www.css-gradient.com/?c1=5ee57f&c2=a26520&gt=l&gd=dtl
+*/
+/* background: #5EE57F;
+background: linear-gradient(135deg, #5EE57F, #A26520); */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+}
+
+.text{
+  flex: auto;
+  background-color: azure;
+  color: black;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  height: fit-content;
+}
+
+.edit{
+  flex: auto;
+  width: fit-content;
+  height: fit-content;
+  margin: 5px;
+  justify-content: center;
+  position: relative;
+  right: 0px;
+}
+
+#dash{
+  /* margin-left: 5px;
+  margin-top: 5px;
+  border-radius: 2px; */
+  width: fit-content;
+}
+
+#sub{
+  background-color:rgb(10, 14, 14);
+  padding: 10px;
+  border-radius: 2px;
+}
+
+buttons{
+  display:flex;
+  flex-direction: row;
+  width: fit-content;
+}
+
+button{
+  background-color: #AFAFDA;
+  border: 1px solid #000000;
+  color: black;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 3px;
+  flex: auto;
+}
+
+.Attended{
+  flex: auto;
+  width: fit-content;
+}
+
+.Missed{
+  flex: auto;
+  width: fit-content;
+}
