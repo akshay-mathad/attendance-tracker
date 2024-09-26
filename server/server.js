@@ -6,8 +6,7 @@ const { MongoClient } = require("mongodb");
 app.use(express.json());
 app.use(cors());
 
-const uri = "mongodb+srv://mathadakshay1726:attendance@databse-1.t0bnl.mongodb.net/?retryWrites=true&w=majority&appName=Databse-1";
-const client = new MongoClient(uri);
+const client = new MongoClient(process.env.MONGO_URI);
 
 client
   .connect()
