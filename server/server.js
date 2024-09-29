@@ -2,9 +2,16 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const { MongoClient } = require("mongodb");
+const RateLimit = require("express-rate-limit");
+
+const limiter = RateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // max 100 requests per windowMs
+});
 
 app.use(express.json());
 app.use(cors());
+app.use(limiter);
 
 const client = new MongoClient(process.env.MONGO_URI);
 
