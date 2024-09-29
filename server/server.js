@@ -77,7 +77,7 @@ client
         const currentTime = new Date();
 
         const result = await subjects.updateOne(
-          { name },
+          { name: { $eq: name } },
           {
             $inc: { attended: 1, total: 1 },
             $set: { lastUpdated: currentTime }
@@ -102,7 +102,7 @@ client
         const currentTime = new Date();
 
         const result = await subjects.updateOne(
-          { name },
+          { name: { $eq: name } },
           {
             $inc: { missed: 1, total: 1 },
             $set: { lastUpdated: currentTime }
