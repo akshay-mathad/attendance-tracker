@@ -10,12 +10,9 @@ function App() {
   const [showDeleteSubject, setShowDeleteSubject] = useState(false);
 
   const toggleDashboard = (event) => {
-    event.preventDefault();
-    setShowDashboard(!showDashboard);
-    if(showDashboard == false){
-      setShowAddSubject(false);
-      setShowDeleteSubject(false);
-    }
+    setShowDashboard(prevState => !prevState);
+    setShowAddSubject(false);
+    setShowDeleteSubject(false);
   };
 
     const toggleAddSubject = (event) => {
@@ -39,6 +36,8 @@ function App() {
     .then(response => {
       console.log('Response from Server:', response.data);
       fetchSubjects();
+      setShowAddSubject(false);
+      setShowDashboard(false);
     })
     .catch(error => {
       console.error('Error sending data:', error);
@@ -52,6 +51,8 @@ function App() {
     .then(response => {
       console.log('Subject deleted:', response.data);
       fetchSubjects();
+      setShowDeleteSubject(false);
+      setShowDashboard(false);
     })
     .catch(error => {
       console.error('Error deleting subject:', error);
