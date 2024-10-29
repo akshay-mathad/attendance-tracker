@@ -1,1 +1,1 @@
-![Demo Video](/Videos/demo.mp4)
+[Watch Demo Video](/Videos/demo.mp4)
