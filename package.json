@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "react-router-dom": "^6.26.1"
+    "react-router-dom": "^6.26.1",
+    "start-client-server": "concurrently \"npm start\" \"npm run server\""
   }
 }
