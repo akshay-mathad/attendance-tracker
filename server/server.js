@@ -4,7 +4,10 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const { MongoClient } = require("mongodb");
+const helmet = require("helmet");
+const compression = require("compression");
 const RateLimit = require("express-rate-limit");
+const logger = require("./logger");
 
 const limiter = RateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -13,6 +16,8 @@ const limiter = RateLimit({
 
 app.use(express.json());
 app.use(cors());
+app.use(helmet());
+app.use(compression());
 app.use(limiter);
 
 const client = new MongoClient(process.env.MONGO_URI);
@@ -20,10 +25,15 @@ const client = new MongoClient(process.env.MONGO_URI);
 client
   .connect()
   .then(() => {
-    console.log("Connected to MongoDB");
+    logger.info("Connected to MongoDB");
 
     const database = client.db("Attendance");
     const subjects = database.collection("subjects");
+
+    // Health check endpoint
+    app.get("/health", (req, res) => {
+      res.json({ status: "up" });
+    });
 
     // Get all subjects
     app.get("/subjects", async (req, res) => {
@@ -31,7 +41,7 @@ client
         const allSubjects = await subjects.find({}).toArray();
         res.json(allSubjects);
       } catch (error) {
-        console.error("Error fetching subjects:", error);
+        logger.error("Error fetching subjects:", error);
         res.status(500).send("Error fetching subjects data");
       }
     });
@@ -56,7 +66,7 @@ client
           insertedId: result.insertedId,
         });
       } catch (error) {
-        console.error("Error adding subject:", error);
+        logger.error("Error adding subject:", error);
         res.status(500).json({ message: "Error adding subject" });
       }
     });
@@ -74,7 +84,7 @@ client
           res.status(404).json({ message: "Subject not found" });
         }
       } catch (error) {
-        console.error("Error deleting subject:", error);
+        logger.error("Error deleting subject:", error);
         res.status(500).json({ message: "Error deleting subject" });
       }
     });
@@ -99,7 +109,7 @@ client
           res.status(200).json({ message: "Subject updated successfully" });
         }
       } catch (error) {
-        console.error("Error updating subject:", error);
+        logger.error("Error updating subject:", error);
         res.status(500).json({ message: "Error updating subject" });
       }
     });
@@ -124,14 +134,15 @@ client
           res.status(200).json({ message: "Subject updated successfully" });
         }
       } catch (error) {
-        console.error("Error updating subject:", error);
+        logger.error("Error updating subject:", error);
         res.status(500).json({ message: "Error updating subject" });
       }
     });
 
   })
-  .catch((err) => console.error("MongoDB connection error:", err));
+  .catch((err) => logger.error("MongoDB connection error:", err));
 
-app.listen(5000, () => {
-  console.log("Server is running on port 5000");
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  logger.info(`Server is running on port ${PORT}`);
 });

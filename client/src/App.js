@@ -9,30 +9,30 @@ function App() {
   const [showAddSubject, setShowAddSubject] = useState(false);
   const [showDeleteSubject, setShowDeleteSubject] = useState(false);
 
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
   const toggleDashboard = (event) => {
     setShowDashboard(prevState => !prevState);
     setShowAddSubject(false);
     setShowDeleteSubject(false);
   };
 
-    const toggleAddSubject = (event) => {
-      event.preventDefault();
-      setShowAddSubject(!showAddSubject);
-      setShowDeleteSubject(false);
-    };
-  
-    const toggleDeleteSubject = (event) => {
-      event.preventDefault();
-      setShowDeleteSubject(!showDeleteSubject);
-      setShowAddSubject(false);
-    };
+  const toggleAddSubject = (event) => {
+    event.preventDefault();
+    setShowAddSubject(!showAddSubject);
+    setShowDeleteSubject(false);
+  };
 
-  
+  const toggleDeleteSubject = (event) => {
+    event.preventDefault();
+    setShowDeleteSubject(!showDeleteSubject);
+    setShowAddSubject(false);
+  };
 
   const handleAddSubject = (event) => {
     event.preventDefault();
     const subjectName = event.target.newSub.value;
-    axios.post("http://localhost:5000/add",{ name: subjectName })
+    axios.post(`${API_URL}/add`, { name: subjectName })
     .then(response => {
       console.log('Response from Server:', response.data);
       fetchSubjects();
@@ -47,7 +47,7 @@ function App() {
   const handleDeleteSubject = (event) => {
     event.preventDefault();
     const subjectName = event.target.deleteSub.value;
-    axios.delete("http://localhost:5000/delete", { data: { name: subjectName } })
+    axios.delete(`${API_URL}/delete`, { data: { name: subjectName } })
     .then(response => {
       console.log('Subject deleted:', response.data);
       fetchSubjects();
@@ -65,7 +65,7 @@ function App() {
 
   const fetchSubjects = () => {
     axios
-      .get("http://localhost:5000/subjects")
+      .get(`${API_URL}/subjects`)
       .then((response) => {
         if (Array.isArray(response.data)) {
           setSubjects(response.data);
