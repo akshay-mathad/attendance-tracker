@@ -2,9 +2,6 @@ const express = require("express");
 const app = express();
 const path = require("path");
 
-const { MongoClient } = require("mongodb");
-const uri =
-  "mongodb+srv://mathadakshay1726:DBCON123@cluster0.ufx71.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 const client = new MongoClient(uri);
 
