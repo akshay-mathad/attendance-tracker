@@ -24,8 +24,8 @@ const Subject = ({ subject, setSubjects }) => {
           datasets: [{
             data: [subject.attended, subject.missed],
             backgroundColor: [
-              (subject.attended / (subject.attended + subject.missed)) * 100 < 75 ? '#ff0000' : '#9dbe90', // Attended
-              '#36a2eb'  // Missed
+              (subject.attended / (subject.attended + subject.missed)) * 100 < 75 ?  '#576f4d': '#36a2eb' , // Attended
+              '#ff0000'  // Missed
             ],
             hoverOffset: 4,
           }],

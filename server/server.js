@@ -7,7 +7,7 @@ const { MongoClient } = require("mongodb");
 const helmet = require("helmet");
 const compression = require("compression");
 const RateLimit = require("express-rate-limit");
-const logger = require("./logger");
+const logger = require('./logger');
 
 const limiter = RateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
